@@ -1,0 +1,16 @@
+---
+- name: A test on variables usage
+  gather_facts: yes
+  hosts: webservers
+
+  vars :
+    - user_name: devops
+
+  vars_files:
+    - /home/coder/work/Projets_VPN_automation/vars/generic.yaml
+    - /home/coder/work/Projets_VPN_automation/vars/ansible_aws_vars_file.yml
+
+  tasks:
+  - name: Print a message for debug
+    ansible.builtin.debug:
+      msg: "Connected to {{ domain }} - IP {{ ansible_host }} - For user {{ user_name }}. Managed host is running {{ ansible_distribution }} {{ ansible_distribution_version }}"
