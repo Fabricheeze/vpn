@@ -1,0 +1,15 @@
+---
+- name: Exécuter le playbook create_loopback
+  import_playbook: create_loopback.yml
+
+- name: Exécuter le playbook strongswan-install
+  import_playbook: strongswan-install.yaml
+
+- name: Exécuter le playbook deploy_ipsec_conf
+  import_playbook: deploy_ipsec_conf.yml
+
+- name: Exécuter le playbook deploy_ipsec_secrets
+  import_playbook: deploy_ipsec_secrets.yml
+
+- name: Exécuter le playbook deploy_config_vpn
+  import_playbook: deploy_config_vpn.yml

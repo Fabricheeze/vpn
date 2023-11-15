@@ -1,0 +1,23 @@
+---
+- name: Create a loopback to OVH Instance
+  hosts: webservers
+  become: yes
+  vars:
+    script_local_path: "/tasks/configure_vpn.sh"
+    script_remote_path: "../terraform-ovh-infra/configure_vpn.sh"
+
+  tasks: 
+    - name: Add Loopback Interface
+      ansible.builtin.shell:
+        ip link add name loop1 type dummy
+      become: yes
+
+    - name: Set Loopback Interface UP
+      ansible.builtin.shell:
+        ip link set loop1 up
+      become: yes
+      
+    - name: Assign IP Address to Loopback Interface
+      ansible.builtin.shell:
+        ip addr add 192.168.10.1/32 dev loop1
+      become: yes

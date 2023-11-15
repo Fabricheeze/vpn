@@ -1,0 +1,25 @@
+---
+- name: Upload and Execute Config_vpn to Strongswan VM
+  hosts: webservers
+  become: yes
+  vars:
+    script_local_path: "../templates/configure_vpn.sh.j2"
+    script_remote_path: "/tmp/configure_vpn.sh"
+
+  vars_files:
+    - /home/coder/work/Projets_VPN_automation/vars/generic.yaml
+    - /home/coder/work/Projets_VPN_automation/vars/ansible_aws_vars_file.yml
+    - /home/coder/work/Projets_VPN_automation/vars/ansible_ovh_vars_file.yml
+
+    
+
+  tasks :
+    - name: Upload Config_vpn to Strongswan VM
+      ansible.builtin.template:
+        src: "{{ script_local_path }}"
+        dest: "{{ script_remote_path }}"
+        mode: '0755'
+      become: yes
+
+    - name: Execute Config_vpn to Strongswan VM
+      ansible.builtin.shell: "{{ script_remote_path }}"

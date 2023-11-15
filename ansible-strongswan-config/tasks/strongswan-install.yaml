@@ -1,0 +1,11 @@
+---
+- name: Install StrongSwan
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Update apt cache and install StrongSwan
+      ansible.builtin.apt:
+        update_cache: yes
+        pkg:
+          - strongswan
+        state: present
